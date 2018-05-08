@@ -1,0 +1,202 @@
+{{embed_partial 'header-meta'}}
+	<title>Entegral - Home Template</title>
+</head>
+
+{{set 'listings_for_sale' (filter listings 'propertyStatus' 'For Sale')}}
+
+{{set 'facets_for_sale' (calculate_facets listings_for_sale)}}
+
+{{set 'suburbs_for_sale' (sort facets_for_sale.facets_suburb 'town' 'asc')}}
+{{set 'suburbs_for_sale_by_town' (group_by suburbs_for_sale 'town')}}
+
+{{set 'listings_for_sale' (sort listings_for_sale 'price' 'asc')}}
+{{set 'listings_for_sale' (limit listings_for_sale 4)}}
+
+{{set 'justlisted' (sort listings_for_sale 'price' 'asc')}}
+{{set 'justlisted' (limit justlisted 5)}}
+
+<body data-spy="scroll" data-target=".navigation">
+
+	{{embed_partial 'header'}}
+	<section id="intro" class="intro-section bg-cover bg-fixed">
+		<div class="overlay"></div>
+		<div class="banner-content">
+			<div class="container">
+				<div id="flexmain" class="flexslider featured-listing">
+				  <ul class="slides">
+					{{#each listings_for_sale}}
+						<li>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="p40">
+										<h2>{{heading}}</h2>
+										<h4>{{suburb}}, {{province}}</h4>
+										<ul class="list-inline featured-mini-details mb-3">
+											<li class="list-inline-item"><i class="icon-listy icon-bed"></i> {{bedrooms}} Beds</li>
+											<li class="list-inline-item"><i class="icon-listy icon-bathtub"></i> {{bathrooms}} Baths</li>
+											<li class="list-inline-item"><i class="icon-listy icon-house"></i> {{format_size standsize}}</li>
+										</ul>
+										<p>{{format_stringsize description 225}}</p>
+										<a href="{{format_url suburb}}-{{format_url propertyType}}-{{format_url propertyStatus}}-{{propertyid}}" class="btn btn-blue">View Property</a>
+									</div>
+								</div>
+								<div class="col-md-6 bg-cover" style="background-image: url('{{mainphoto}}')"></div>
+							</div>
+						</li>
+					{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section id="featured-properties" class="section bg-grey">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 pr-30">
+					<h3>Our Latest Properties</h3>
+					{{#each listings_for_sale}}
+					<div class="box-horizontal paginate-item">
+						<a href="{{format_url suburb}}-{{format_url propertyType}}-{{format_url propertyStatus}}-{{propertyid}}">
+						<div class="row">
+							<div class="col-md-6 bg-temp" style="background-image: url('{{mainphoto}}')">
+							  <h5 class="tag-price">{{format_currencysymbol currency}} {{format_numbersep price}}</h5>
+							</div>
+							<div class="col-md-6">
+								<div class="box-horizontal--inner">
+							    <h4>{{heading}}</h4>
+									<p>{{format_stringsize description 125}}</p>
+									<ul class="small-listing-details listings-bottom">
+										<li><i class="icon-listy icon-bed"></i> {{bedrooms}} Beds</li>
+										<li><i class="icon-listy icon-bathtub"></i> {{bathrooms}} Baths</li>
+										<li><i class="icon-listy icon-house"></i> {{format_size standsize}}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						</a>
+					</div>
+					{{/each}}
+
+					<div class="row pagination hidden">
+						<div class="col-md-12">
+							<nav>
+							  <ul class="pagination justify-content-end">
+							    <li class="page-item">
+							      <a class="page-link" href="#" aria-label="Previous">
+							        <span aria-hidden="true">«</span>
+							        <span class="sr-only">Previous</span>
+							      </a>
+							    </li>
+							    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+							    <li class="page-item"><a class="page-link" href="#">2</a></li>
+							    <li class="page-item">
+							      <a class="page-link" href="#" aria-label="Next">
+							        <span aria-hidden="true">»</span>
+							        <span class="sr-only">Next</span>
+							      </a>
+							    </li>
+							  </ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 pl-30">
+					<h3>Property By Location.</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo tenetur animi, perferendis tempora.</p>
+					{{#if suburbs_for_sale_by_town}}
+					{{#each suburbs_for_sale_by_town}}
+						{{set 'town_info' (compose_variable 'town' value)}}
+						<strong><a href="{{compose_url @root.town_info @root.website.url_format_town}}">{{format_camelcase value}}</a></strong>:
+						{{set 'town_suburbs_sorted' (sort items 'suburb' 'asc')}}
+						<ul class="normal-list">
+						{{#each @root.town_suburbs_sorted}}
+							<li><a href="{{compose_url this @root.website.url_format_suburb}}">{{format_camelcase suburb}} ({{count}})</a></li>
+						{{/each}}
+						</ul>
+					{{/each}}
+					{{/if}}
+					<hr>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="other-properties" class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="headline-center"><span>Why choose us</span></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 feature-icon-center">
+					<i class="icon-house"></i>
+					<h4>Local Knowledge</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing laborum error.</p>
+				</div>
+				<div class="col-md-4 feature-icon-center">
+					<i class="icon-profits-1"></i>
+					<h4>Best Online Exposure</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing laborum error.</p>
+				</div>
+				<div class="col-md-4 feature-icon-center">
+					<i class="icon-user-6"></i>
+					<h4>Best Team</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing laborum error.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="about" class="section-bg bg-fixed">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="section-box white-text">
+						<h2>About Us</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo tenetur animi, perferendis tempora quisquam natus voluptas eius officiis, impedit unde nemo qui voluptates aliquam, eaque ut obcaecati repellendus delectus ab.</p>
+						<ul>
+							<li>Nam ultricies neque id erat auctor interdum.</li>
+							<li>Donec nec dolor tempus, ultricies ante a, malesuada quam.</li>
+							<li>Donec sed felis vel mi elementum ultrices a id augue.</li>
+							<li>Donec ac quam vulputate, posuere elit pharetra, varius mi.</li>
+							<li>Duis rhoncus est eget justo auctor lobortis.</li>
+						</ul>
+						<a href="/about" class="btn btn-blue">Learn More</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="main-vid" class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="headline-center"><span>More About This Area</span></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 pr-30">
+					<iframe width="854" height="480" src="https://www.youtube.com/embed/OCWj5xgu5Ng"></iframe>
+				</div>
+				<div class="col-md-4 pl-30">
+					<div class="feature-icon-center">
+						<i class="icon-tag3"></i>
+						<h4>Competitive Prices</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing laborum error.</p>
+					</div>
+					<hr>
+					<div class="feature-icon-center">
+						<i class="icon-intersection2"></i>
+						<h4>Prime Location</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing laborum error.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{{embed_partial 'footer'}}

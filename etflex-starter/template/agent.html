@@ -1,0 +1,154 @@
+{{embed_partial 'header-meta'}}
+	<title>Entegral - {{agent.fullName}} {{agent.lastName}}</title>
+</head>
+
+{{set 'agent_properties' (get_agent_properties agent listings 9)}}
+
+<body data-spy="scroll" data-target=".navigation">
+
+	{{embed_partial 'header'}}
+
+	<section id="intro" class="intro-section section-heading bg-cover bg-fixed">
+		<div class="banner-content">
+			<div class="container">
+				<div class="row vcenter">
+					<div class="col-md-6">
+						<div class="featured-listing">
+							<h2>{{agent.fullName}} {{agent.lastName}}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="main-section" class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="boxed bordered agent-details">
+						<div class="agent-img">
+							<img src="{{agent.agent_photo}}" alt="">
+						</div>
+						<div class="agent-details-meta">
+							<div class="agent-intro">
+						  	<h4>{{agent.fullName}} {{agent.lastName}}</h4>
+						  	<p>{{agent.agent_profile}}</p>
+							</div>
+						  <address>
+					    	<span><strong>Tel</strong>
+					    		<a href="tel:{{agent.agent_cell}}">{{agent.agent_cell}}</a>
+					    	</span>
+					    	<span><strong>Office</strong>
+					    		<a href="tel:{{agent.agent_officetel}}">{{agent.agent_officetel}}</a>
+					    	</span>
+					    	<span><strong>Email</strong>
+					    		<a href="mailto:#">contact@contact.com</a>
+					    	</span>
+					    </address>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 pr-30">
+					{{#each agent_properties}}
+					<a href="{{format_url suburb}}-{{format_url propertyType}}-{{format_url propertyStatus}}-{{propertyid}}">
+						<div class="box-horizontal">
+							<div class="row">
+								<div class="col-md-6 bg-temp" style="background-image: url('{{mainphoto}}')">
+								</div>
+								<div class="col-md-6">
+									<div class="box-horizontal--inner">
+								    <h4>{{heading}}</h4>
+							    	<h5>{{format_currencysymbol currency}} {{format_numbersep price}}</h5>
+										<p>{{format_stringsize description 100}}</p>
+										<ul class="small-listing-details listings-bottom">
+											<li><i class="icon-listy icon-bed"></i> {{bedrooms}} Beds</li>
+											<li><i class="icon-listy icon-bathtub"></i> {{bathrooms}} Baths</li>
+											<li><i class="icon-listy icon-house"></i> {{format_size property.standsize}}</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+					{{/each}}
+					<div class="row pagination">
+						<div class="col-md-12">
+							<nav>
+							  <ul class="pagination justify-content-end">
+							    <li class="page-item">
+							      <a class="page-link" href="#" aria-label="Previous">
+							        <span aria-hidden="true">«</span>
+							        <span class="sr-only">Previous</span>
+							      </a>
+							    </li>
+							    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+							    <li class="page-item"><a class="page-link" href="#">2</a></li>
+							    <li class="page-item">
+							      <a class="page-link" href="#" aria-label="Next">
+							        <span aria-hidden="true">»</span>
+							        <span class="sr-only">Next</span>
+							      </a>
+							    </li>
+							  </ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer id="footer" class="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5">
+						<h4>About Real Estate</h4>
+						<p>Pellentesque in ipsum id orci porta dapibus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vivamus suscipit tortor</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus incidunt, minus consectetur vero molestias corporis voluptatum ipsam.</p>
+					</div>
+					<div class="col-md-4">
+						<h4>Contact Information</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+						<ul class="contact-list">
+							<li><i class="icon-house-1"></i>Lone Hill, Sandton, South Africa</li>
+							<li><i class="icon-telephone-1"></i>+27 (0)21 201 6777</li>
+							<li><i class="icon-envelope"></i><a href="mailto:contact@domaincom">contact@domain.net</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h4>Quick Links</h4>
+						<ul class="quick-links">
+							<li><a href="#">Affiliate</a></li>
+							<li><a href="#">Disclaimer</a></li>
+							<li><a href="#">Terms &amp; Conditions</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row vcenter">
+					<div class="col-md-6">
+						<p>© Real Estate. All Right Reserved</p>
+					</div>
+					<div class="col-md-6 text-right">
+						<p class="copyright">Powered by <a href="#" class="noborder"><img src="assets/images/entegral-flex-logo.png" class="footer-logo" alt=""></a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/js/jquery-3.2.1.min.js"></script>
+	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/slick.min.js"></script>
+	<script src="assets/js/simplelightbox.min.js"></script>
+	<script src="assets/js/custom.js"></script>
+	
+</body>
+</html>

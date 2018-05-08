@@ -1,0 +1,172 @@
+{{embed_partial 'header-meta'}}
+	<title>Entegral - {{format_camelcase property.heading}}</title>
+</head>
+
+<body data-spy="scroll" data-target=".navigation">
+
+	{{embed_partial 'header'}}
+
+	<section id="intro" class="intro-section section-heading bg-cover bg-fixed">
+		<div class="banner-content">
+			<div class="container">
+				<div class="row vcenter">
+					<div class="col-md-12">
+						<div class="featured-listing">
+							<h2>{{format_camelcase property.heading}}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="main-section" class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="property-title">
+						<h3>{{property.propertyType}} {{property.propertyStatus}} - {{format_currencysymbol property.currency}} {{format_numbersep property.price}}</h3>
+						<h5>Ref # 
+							{{format_camelcase property.propertyid}} :
+	            <a href="{{compose_url property website.url_format_suburb}}">{{format_camelcase property.suburb}}
+	            </a>,
+	            <a href="{{compose_url property website.url_format_town}}">
+	              {{format_camelcase property.town}}
+	            </a>,
+	            <a href="{{compose_url property website.url_parkformat_province}}">
+	              {{format_camelcase property.province}}
+	            </a>
+						</h5>
+					</div>
+					{{{format_as_html property.description}}}
+				</div>
+				<div class="col-md-6">
+          <div id="flexmain" class="flexslider">
+            <ul class="slides">
+              {{#each property.photos}}
+              <li class="flex-inner-slide" data-src="{{this}}" style="background-image:url('{{this}}');">
+                <img src="{{this}}" alt="">
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="mb-2">Property Details</h3>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col-md-6">
+					<div class="listing-details-inner">
+						{{#if property.showonmap}}
+						<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA4BSjikkVnM0Q9FY5CbFt2_1KexqdgjiU&q={{property.latitude}}, {{property.longitude}}&zoom=16"></iframe>
+						{{else}}
+						<iframe class="noshow" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA4BSjikkVnM0Q9FY5CbFt2_1KexqdgjiU&q={{property.suburb}}{{property.town}}"></iframe>
+						{{/if}}
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="listing-details-inner">
+						<ul>
+							{{#if property.propertyType}}<li><span>Property Type</span> {{property.propertyType}}</li>{{/if}}
+							{{#if (gt property.bedrooms '0')}}<li><span>Beds</span> {{property.bedrooms}}</li>{{/if}}
+							{{#if (gt property.bathrooms '0')}}<li><span>Bath</span> {{property.bathrooms}}</li>{{/if}}
+							{{#if (gt property.garages '0')}}<li><span>Garages</span> {{property.garages}}</li>{{/if}}
+							{{#if (gt property.carports '0')}}<li><span>Carports</span> {{property.carports}}</li>{{/if}}
+							{{#if property.pool}}<li><span>Pool</span> {{property.pool}}</li>{{/if}}
+							{{#if (neq property.buildingsize '0.000 sqm')}}<li><span>Building Size</span> {{format_size property.buildingsize}}</li>{{/if}}
+							{{#if (neq property.standsize '0.000 sqm')}}<li><span>Stand Size</span> {{format_size property.standsize}}</li>{{/if}}
+						</ul>					
+					</div>
+				</div>
+			</div>
+			<div class="row mt-4">
+				{{set 'property_agents' (get_property_agents property agents)}}
+				{{#each property_agents}}
+				<div class="col-md-6">
+					<div class="agent-box1">
+							<div class="row vcenter">
+								<div class="col-md-4">
+									<img src="{{agent_photo}}" alt="">
+								</div>
+								<div class="col-md-8">
+									<h4><a href="{{compose_url this @root.website.url_format_agent}}">{{fullName}} {{lastName}}</a></h4>
+									<p>{{format_stringsize agent_profile 170}}</p>
+									<button type="button" class="btn btn-modal" data-toggle="modal" data-target="#agent-modal">Get in Touch</button>
+								</div>
+							</div>
+						</div>
+				</div>
+				{{/each}}
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Gallery</h3>
+				</div>
+			</div>
+			<div class="row">
+        {{#each property.photos}}
+        <div class="col-lg-3 col-md-4 col-xs-6">
+        	<div class="property-gallery mb-4">
+        		<a href="{{this}}">
+          		<img src="{{this}}" alt="">
+          	</a>
+          </div>
+        </div>
+        {{/each}}
+			</div>
+		</div>
+	</section>
+	
+	<!-- Request More Information Modal -->
+	<div class="modal fade" id="agent-modal" tabindex="-1" role="dialog" aria-labelledby="agent-request-more-info" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="agent-request-more-info">Request More Information</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<p>Interested in <strong>{{format_camelcase property.heading}}</strong>? Please fill in your details below, and we will contact you as soon as possible.</p>
+					<form action="#" class="request-more-information">
+	          <div class="row">
+	            <div class="col-md-4">
+	              <div class="form-group">
+	                <input type="hidden" id="propertyref" value="1801689">
+	                <input type="text" class="form-control" id="name" placeholder="Full Name" required="">
+	              </div>
+	            </div>
+	            <div class="col-md-4">
+	              <div class="form-group">
+	                <input type="email" class="form-control" id="email" placeholder="Email Address" required="">
+	              </div>
+	            </div>
+	            <div class="col-md-4">
+	              <div class="form-group">
+	                <input type="phone" class="form-control" id="phone" placeholder="Phone Number">
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-12">
+	              <div class="form-group">
+	                <textarea class="form-control" id="message" placeholder="Message" rows="7" required=""></textarea>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <button class="btn btn-purple btn-smaller1 mt-20 btn-property-page" type="button">Submit</button>
+	          </div>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	{{embed_partial 'footer'}}

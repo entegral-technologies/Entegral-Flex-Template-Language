@@ -1,0 +1,102 @@
+{{embed_partial 'header-meta'}}
+	<title>Entegral - {{suburb.suburb}}</title>
+</head>
+
+{{set 'suburb_listing' (filter listings 'suburb' suburb.suburb)}}
+{{set 'suburb_listing' (sort suburb_listing 'propertyid' 'desc')}}
+{{set 'suburb_listing' (limit suburb_listing 9)}}
+
+<body data-spy="scroll" data-target=".navigation">
+
+	{{embed_partial 'header'}}
+
+	<section id="intro" class="intro-section section-heading bg-cover bg-fixed">
+		<div class="banner-content">
+			<div class="container">
+				<div class="row vcenter">
+					<div class="col-md-12">
+						<div class="featured-listing">
+							<h2>Properties in {{suburb.suburb}}, {{suburb.town}}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="main-section" class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 pr-30">
+					{{#each suburb_listing}}
+					<div class="box-horizontal">
+						<a href="{{format_url suburb}}-{{format_url propertyType}}-{{format_url propertyStatus}}-{{propertyid}}">
+						<div class="row">
+							<div class="col-md-6 bg-temp" style="background-image: url('{{mainphoto}}')">
+						    <h5 class="tag-price">
+						    {{format_currencysymbol currency}} {{format_numbersep price}}
+			        	{{#if (eq propertyStatus 'Rental Daily')}}
+			        		<span>Per Day</span>
+			        	{{else if (eq propertyStatus 'Rental Monthly')}}
+									<span>Per Month</span`>
+			        	{{/if}}
+						    </h5>
+							</div>
+							<div class="col-md-6">
+								<div class="box-horizontal--inner">
+							    <h4>{{heading}}</h4>
+									<p>{{format_stringsize description 125}}</p>
+									<ul class="small-listing-details listings-bottom">
+										<li><i class="icon-listy icon-bed"></i> {{bedrooms}} Beds</li>
+										<li><i class="icon-listy icon-bathtub"></i> {{bathrooms}} Baths</li>
+										<li><i class="icon-listy icon-house"></i> {{format_size standsize}}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						</a>
+					</div>
+					{{/each}}
+				</div>
+				<div class="col-md-4 pl-30">
+					<h3>Contact Our Team</h3>
+					<p>Contact us with your <strong>{{suburb.suburb}}</strong> needs.</p>
+					<form action="#" id="contact-form" method="post" name="contact-form" role="form">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label for="form_name">Name *</label>
+									<input class="form-control" id="form_name" name="lastname" required="required" type="text">
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label for="form_email">Email *</label>
+									<input class="form-control" id="form_email" name="email" required="required" type="email">
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label for="form_email">Phone *</label>
+									<input class="form-control" id="form_email" name="email" required="required" type="email">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="form_message">Message *</label> 
+									<textarea class="form-control" id="form_message" name="message" required="required" rows="6"></textarea>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<input class="btn btn-submit" type="submit" value="Submit">
+							</div>
+						</div>
+					</form>				
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{{embed_partial 'footer'}}
