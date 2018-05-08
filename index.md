@@ -11,3 +11,4 @@ The Flex processing engine automatically compiles and loads dynamic content into
 ### Example ###
 Explore our source code example on Github to get started.
 
+For more information visit www.entegral.net/flex/flex-template-language
